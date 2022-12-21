@@ -1,5 +1,5 @@
 @charset 'utf-8';
-@import 'default2.css';
+@import 'default.css';
 
 #intro{
 	background: url('../img/bg_intro.png') no-repeat;
