@@ -1,0 +1,169 @@
+@charset 'utf-8';
+@import 'default2.css';
+
+#play{
+  background: url('../img/bg_play.png') no-repeat;
+	background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}
+h1{
+  position: absolute; left: 50%; top: 20px;
+  transform: translateX(-50%);
+  color: #fff; font-size: 22px;
+}
+.basic{
+  width: 93%;
+  margin: 40px auto;
+}
+.time{
+  padding-top: 10px;
+  color: #fff; font-size: 14px;
+  margin-bottom: 5px;
+}
+.time>.bar{
+  width: 100%; height: 20px;
+  border: 1px solid #fff;
+  margin: 0 auto;
+  position: relative;
+}
+.time>.bar>span{
+  display: block;
+  width: 100%; height: 100%;
+  background: #fff;
+  color:#222;
+}
+.life>img{ float: left; }
+.play_area{
+  width: 100%;
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-40%);
+}
+.play_area>.start,.play_area>.success,.play_area>.failure{
+  width: 90%; height: auto;
+  position: absolute; left: 50%; top: 20%; z-index: 1000;
+  transform: translate(-50%,-50%);
+  opacity: 0; margin-top: 30px;
+  display: none;
+}
+.play_area>.success,.play_area>.failure{
+  width: 100%;
+}
+.play_area>.school{ width: 100%; height: auto; }
+.play_area>.windows{
+  width: 100%; height: 100%;
+  position: absolute; left: 0; top: 0;
+}
+.play_area>.windows>.w{
+  width: 16%; height: 11.7%;
+  background: url('../img/window_closed.png') no-repeat center center;
+  background-size: cover;
+  position: absolute;
+}
+.play_area>.windows>.w0{
+  left: 10%; top: 33%;
+}
+.play_area>.windows>.w1{ left: 32%; top: 33%; }
+.play_area>.windows>.w2{ left: 51%; top: 33%; }
+.play_area>.windows>.w3{ right: 10%; top: 33%; }
+.play_area>.windows>.w4{ left: 10%; top: 51%; }
+.play_area>.windows>.w5{ left: 32%; top: 51%; }
+.play_area>.windows>.w6{ left: 51%; top: 51%; }
+.play_area>.windows>.w7{ right: 10%; top: 51%; }
+.play_area>.windows>.w8{ left: 10%; top: 70%; }
+.play_area>.windows>.w10{ right: 10%; top: 70%; }
+.play_area>.windows>.w9{
+  width: 27.9%; height: 24.24%;
+  left: 50%; top: 70%; transform: translateX(-50%);
+  background: url('../img/door.png') no-repeat;
+  background-size: cover;
+}
+.play_area>.windows>.w>div{
+  width: 146.4%; height: auto;
+  position: absolute; left: -22%; top: -37%;
+  display: none;
+}
+.play_area>.windows>.w9>div{
+  width: 191.7%; height: auto;
+  left: -44%; top: -22%; z-index: 500;
+}
+.play_area>.windows>.w>.none{
+  width: 55.1%; height: auto;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  display: block;
+}
+.play_area>.windows>.w9>.none{
+  width: 80%; height: auto;
+  left: 50%; top: 11%;
+  transform: translateX(-50%);
+}
+.play_area>.windows>.w9>.btn{
+  width: 100%; height: 100%;
+  left: 50%; top: 0; z-index: 0;
+  transform: translateX(-50%);
+  display: none;
+}
+.play_area>.windows>.w9>.btn>img{
+  width: 50%; height: auto;
+  position: absolute; left: 50%; bottom: -55%; z-index: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.plus{
+  display: block;
+  position: absolute; left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px; text-align: center; color: #fff;
+  text-shadow:
+    -1px -1px 0 #222,
+    0   -1px 0 #222,
+    1px -1px 0 #222,
+    1px  0   0 #222,
+    1px  1px 0 #222,
+    0    1px 0 #222,
+    -1px  1px 0 #222,
+    -1px  0   0 #222;
+  display: none;
+}
+.play_area>.windows>.w9>.btn>.plus{
+  width: 50%;
+  font-weight: bold; text-align: center;
+  bottom: -18%; z-index: 0;
+  pointer-events: none;
+  display: none;
+}
+.play_area>.windows>.w>.items>.plus{
+  top: -5px;
+  opacity: 0; margin-top: 30px;
+}
+.play_area>.windows>.w img{
+  width: 100%; height: auto;
+}
+.play_area>.windows>.w>.shot{
+  width: 50%; height: auto;
+  position: absolute; left: 50%; top: -20%; z-index: 599;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: none;
+}
+.play_area>.windows>.w>.hit{
+  width: 80%; height: auto;
+  position: absolute; left: 50%; top: 50%; z-index: 600;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  display: none;
+}
+.count{
+  position: absolute; right: 3%; bottom: 1%;
+  text-align: right;
+  color: #fff;
+}
+.count>span{
+  display: block;
+  font-size: 30px;
+}
+.count>strong{
+  display: block;
+  font-size: 56px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, address=no, email=no">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>SHOOT THE ZOMBIE</title>
+		<link rel="stylesheet" href="css/next_stage_style.css">
+		<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+		<script>
+			$(function(){
+				$(document).on('touchstart',function(){});
+				$('html,body').animate({scrollTop:'3px'},100);
+				let levImgs=$('h2>img');
+				let levIndex=0;
+				function lev_animation(){
+					levImgs.eq(levIndex).hide();
+					levIndex++;
+					levIndex=levIndex%(levImgs.length);
+					levImgs.eq(levIndex).show();
+				}
+				setInterval(lev_animation,300);
+				$('.btn').on('click',function(e){
+					e.preventDefault();
+					window.location.href="stage2.html";
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<section id="level_clear">
+			<h2>
+				<img src="img/clear1.png" alt="">
+				<img src="img/clear2.png" alt="">
+			</h2>
+			<div class="next">
+				<img src="img/cross.png" alt="">
+				<a href="#" class="btn">다음 스테이지</a>
+			</div>
+		</section>
+	</body>
+</html>

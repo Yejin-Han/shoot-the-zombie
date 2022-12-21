@@ -1,0 +1,70 @@
+@charset 'utf-8';
+@import 'default2.css';
+
+body{
+  background: #5ec5ed;
+}
+#success{
+  background: #dfd09a url('../img/sky.png') no-repeat;
+	background-size: 100% 100%;
+  position: relative;
+}
+.victory{
+  width: 96%;
+  position: absolute; left: 50%; top: 45%;
+  transform: translate(-50%,-50%);
+}
+.victory>.firecracker{ display: flex; justify-content: space-between; }
+.victory>.firecracker>img{
+  transform: rotateZ(0deg);
+}
+.victory>.firecracker>img:first-of-type{
+  transform-origin: bottom left;
+  animation: rotate1 0.8s ease-in-out Infinite Alternate;
+}
+.victory>.firecracker>img:last-of-type{
+  transform-origin: bottom right;
+  animation: rotate2 0.8s ease-in-out Infinite Alternate;
+}
+.victory>img{
+  width: 100%; height: auto;
+  margin-top: -40px;
+}
+.victory>p{
+  margin-top: 20px;
+  font-size: 26px; color: #222; letter-spacing: -1px;
+  text-align: center; font-weight: bold;
+}
+.btns{
+  width: 44.42%; height: 11.26%;
+  position: absolute; left: 50%; bottom: calc(15% - 20px);
+  transform: translateX(-50%);
+  display: flex; justify-content: space-between;
+  opacity: 0;
+}
+.btns>a{
+  display: block;
+  width: 38.74%; height: 100%;
+  padding-top: 33%; box-sizing: border-box;
+  color: #222; font-size: 16px;
+  text-align: center; font-weight: bold;
+  background: url('../img/zom_face.png') no-repeat center top;
+  background-size: 60% auto;
+}
+.btns>.replay{ background-image: url('../img/replay.png'); }
+@keyframes rotate1{
+  0%{
+    transform: rotateZ(0deg);
+  }
+  100%{
+    transform: rotateZ(10deg);
+  }
+}
+@keyframes rotate2{
+  0%{
+    transform: rotateZ(0deg);
+  }
+  100%{
+    transform: rotateZ(-10deg);
+  }
+}
