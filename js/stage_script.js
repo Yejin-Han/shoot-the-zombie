@@ -24,7 +24,14 @@ $(function(){
 	let z0_orisrc_w9=$('.windows>.w9>.zombie>img').attr('src');
 	let h0_orisrc=$('.windows .human>img').attr('src');
 	let i0_orisrc=$('.windows .items>img').attr('src');
+	let stage;
 
+	if(localStorage.getItem('stage')==null){
+		stage=1;
+	} else{
+		stage=Number(localStorage.getItem('stage'));
+	}
+	$('#play>h1>span').text(stage);
 	function typo_animation(typo,time1,time2){
 		typo.show();
 		typo.animate({'opacity':1,'margin-top':0},time1);
@@ -82,47 +89,58 @@ $(function(){
 			$('.windows .items>img').attr('src','img/open_item'+remain+'.png');
 			order=2;
 		} else if(r>=15 && r<70){
-			//stage3에서 종류(+2) 추가될 예정
-			remain=r%3;
-			$('.windows .zombie>img').attr('src','img/open_zom'+remain+'.png');
-			$('.windows>.w9>.zombie>img').attr('src',z0_orisrc_w9);
+			//stage2에서 좀비 종류(+3) stage3에서 종류(+2) 추가될 예정
+			if(stage==2){
+				remain=r%3;
+				$('.windows .zombie>img').attr('src','img/open_zom'+remain+'.png');
+				$('.windows>.w9>.zombie>img').attr('src',z0_orisrc_w9);
+				click2=remain+1;
+			} else if(stage==3){
+				remain=r%5;
+				$('.windows .zombie>img').attr('src','img/open_zom'+remain+'.png');
+				$('.windows>.w9>.zombie>img').attr('src',z0_orisrc_w9);
+				click2=remain+1;
+			}
 			order=0;
-			click2=remain+1;
 		} else if(r>=70){
 			//stage3에서 인간 종류(+2) 늘어날 예정
-			remain=r%4;
+			if(stage==1 || stage==2){
+				remain=r%4;
+			} else if(stage==3){
+				remain=r%6;
+			}
 			$('.windows .human>img').attr('src','img/open_human'+remain+'.png');
 			order=1;
 		}
 		// anonymous 가리고 선택된 div show
 		divs=$('.windows>div').eq(a[0]); //a[0]을 anonymous 세 곳 중 한 곳으로 선정
 		setTimeout(function(){
+			$('.windows>.w9>.btn>.plus').text('연타!!!!');
 			divs.children('.none').hide();
 			divs.children('div').eq(order).show();
-			if(order==0 && click2>0){
-				clearInterval(timer);
-				clearTimeout(hide);
+			if(stage==2 || stage==3){
+				if(order==0 && click2>0){
+					clearInterval(timer);
+					clearTimeout(hide);
+				}
 			}
 			let btn=divs.children('.btn');
 			if(divs.attr('class')=='w9 w'){
 				click=0;
 				btn.show();
 				btn.children('.plus').show().css('display','block');
-				btnTimer=setInterval(btnupdown,100);
-				clearInterval(timer);
-				clearInterval(cnt);
-				setTimeout(function(){
+				setTimeout(function(){ 
 					if(click<6){
 						life--;
 						$('.life>img').eq($('.life>img').length-1).remove();
 						$('.windows>.w9>.btn>.plus').text('연타실패');
 					}
-				},1800);
+				},2000)
 				setTimeout(function(){
 					cnt=setInterval(cntdown,1000);
 					timer=setInterval(ranTar,2000);
 					divs.children().hide();
-				},2200);
+				},2500);
 			}
 		},500);
 		let hide=setTimeout(function(){
@@ -135,6 +153,7 @@ $(function(){
 	timer=setInterval(ranTar,2000);
 
 	$('.windows>.w>div>img').on('click',function(){
+		console.log(click, click2);
 		let w=$(this).parents('div').eq(1);
 		w.append($('<img src="img/hit_effect.png" class="hit" alt="">'));
 		let hit=w.children('.hit');
@@ -145,35 +164,48 @@ $(function(){
 				w.append($('<img src="img/shot_small_blood.png" class="shot" alt="">'));
 				shot=w.children('.shot');
 				shot.show();
-				if(w.attr('class')=='w9 w'){
-					w.find('.plus').text('연타!!!!');
-					$(this).attr('src','img/open_door_hit.png');
-					click++;
-				}
-				zom_cnt--;
-				$('.count>strong').text(zom_cnt);
 				clickable=0;
-			}
-			if(click2>0){
-				click2--;
-				console.log(click2);
-				if(click2<=0){
-					click2=0;
-					timer=setInterval(ranTar,2000);
-					hide=setTimeout(function(){
-						a.splice(0,9);
-						$('.windows>div>.none').remove();
-						if(w.attr('class')!='w9 w') divs.children().hide();
-						clickable=1;
-					},1500);
+				if(stage==1){
+					zom_cnt--;
+					$('.count>strong').text(zom_cnt);
 				}
-			}	
-			console.log(click2);
+			}
+			if(w.attr('class')=='w9 w'){
+				btnTimer=setInterval(btnupdown,100);
+				clearInterval(timer);
+				clearInterval(cnt);
+				$(this).attr('src','img/open_door_hit.png');
+				click++;
+			}
+			if(stage==2 || stage==3){
+				if(click2>0){
+					click2--;
+					if(click2<=0){
+						click2=0;
+						zom_cnt--;
+						$('.count>strong').text(zom_cnt);
+						timer=setInterval(ranTar,2000);
+						hide=setTimeout(function(){
+							a.splice(0,9);
+							$('.windows>div>.none').remove();
+							if(w.attr('class')!='w9 w') divs.children().hide();
+							clickable=1;
+						},1000);
+					}
+				}
+			}
 			if(zom_cnt==0){ //zom_cnt가 0이 되면 끝(success)
 				clearInterval(timer);
 				clearInterval(cnt);
 				typo_animation($('.success'),400,1000);
-				setTimeout(function(){ window.location.href="next_stage.html"; },1200);
+				if(stage==1 || stage==2){
+					setTimeout(function(){ window.location.href="next_stage.html"; },1200);
+					stage++;
+					localStorage.setItem('stage', String(stage));
+				} else if(stage==3){
+					setTimeout(function(){ window.location.href="success.html"; },1200);
+					localStorage.clear();
+				}
 			}
 		} else if($(this).parent().attr('class')=='human'){
 			if(clickable==1){
@@ -184,6 +216,7 @@ $(function(){
 			}
 		} else if($(this).parent().attr('class')=='items'){
 			let plus=$('.windows>.w>.items>.plus');
+			plus.css('margin-top', '30px');
 			if(clickable==1){
 				if(remain==0){
 					life++;

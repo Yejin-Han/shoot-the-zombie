@@ -15,13 +15,15 @@ $(function(){
 	});
 	intro.find('.new').on('click',function(e){
 		e.preventDefault();
-		window.location.href="stage1.html";
+		window.location.href="stage.html";
+		localStorage.clear();
 	});
 	guide.find('.back').on('click',function(){
 		guide.stop().fadeOut(100);
 		intro.stop().fadeIn(100);
 	});
 	guide.find('.start').on('click',function(){
-		window.location.href="stage1.html";
+		window.location.href="stage.html";
+		localStorage.clear();
 	})
 });
